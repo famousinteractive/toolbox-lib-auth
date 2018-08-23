@@ -52,4 +52,13 @@ Route::post('/' . fitrans('routes.web.password_renew'), [
     'uses'  => 'AuthController@renewPasswordStore'
 ]);
 
-Move the views in Auth/ to the right folder and update them (also the extend of the Layouts)
+Move the views to the right folder and update them (also the extend of the Layouts)
+
+Route to protect : put them in a group behind the middleware
+
+Route::group(
+    [
+        'middleware' => [ 'web','authRoute']
+    ], function() {
+
+});

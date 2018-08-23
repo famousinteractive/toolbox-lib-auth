@@ -2,7 +2,7 @@
 
 namespace App\Libraries\Famous\Authentification;
 
-use App\Model\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Session;
 use Hash;

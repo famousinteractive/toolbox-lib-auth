@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Libraries\Famous\Authentification\Auth;
 
-use App\Model\User;
+use App\Mail\RenewPassword;
+use App\Models\User;
 use Illuminate\Http\Request;
 use View;
 use Session;
@@ -70,10 +71,7 @@ class AuthController extends Controller
                 $user->renew_password_hash = $uniqueHash;
                 $user->save();
 
-                /*
-                 * TODO here send a email
-                 * LINK: route('auth.renewPassword', ['recoverHash' => $uniqueHash])
-                 */
+                \Mail::to($user->email)->send(new RenewPassword($user, $uniqueHash));
             }
         }
 
