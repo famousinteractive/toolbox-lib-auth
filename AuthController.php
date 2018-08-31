@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Libraries\Famous\Authentification\Auth;
+use App\Libraries\Authentification\Auth;
 
 use App\Mail\RenewPassword;
 use App\Models\User;
 use Illuminate\Http\Request;
-use View;
 use Session;
 
 class AuthController extends Controller
@@ -23,7 +22,7 @@ class AuthController extends Controller
             'redirect'  => $request->get('redirect', '/'),
         ];
 
-        return View::make('Auth.login', $data);
+        return view('auth.login', $data);
     }
 
     public function loginStore(Request $request) {
@@ -46,7 +45,7 @@ class AuthController extends Controller
             return redirect($redirect);
 
         } else {
-            return View::make('Auth.login', ['redirect' => $redirect, 'autherror' => fitrans('auth.loginfailed'), 'data' => $request->all() ]);
+            return view('auth.login', ['redirect' => $redirect, 'autherror' => fitrans('auth.loginfailed'), 'data' => $request->all() ]);
         }
     }
 
@@ -56,7 +55,7 @@ class AuthController extends Controller
     }
 
     public function recoverPassword(Request $request) {
-        return View::make('Auth.recover');
+        return view('auth.recover');
     }
 
     public function recoverPasswordStore(Request $request) {
@@ -64,9 +63,8 @@ class AuthController extends Controller
         $user = User::where('email', $request->get('email'))->first();
 
         if(!empty($user)) {
-            //Use the invite_unique_id to update the password
 
-            if(!empty($user->password)) { //If user don't exists yet, why he ask ?
+            if(!empty($user->password)) {
                 $uniqueHash = uniqid(true) . md5($user->email);
                 $user->renew_password_hash = $uniqueHash;
                 $user->save();
@@ -75,7 +73,7 @@ class AuthController extends Controller
             }
         }
 
-        return View::make('Auth.recover', ['success'    => fitrans('auth.password_sent')]);
+        return view('auth.recover', ['success'    => fitrans('auth.password_sent')]);
     }
 
     public function renewPassword(Request $request, $recoverHash) {
@@ -99,7 +97,7 @@ class AuthController extends Controller
             'recoverHash'  => $recoverHash
         ]);
 
-        return View::make('Auth.renew' , $data);
+        return view('auth.renew' , $data);
     }
 
     public function renewPasswordStore(Request $request) {

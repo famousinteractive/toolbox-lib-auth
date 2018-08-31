@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libraries\Famous\Authentification;
+namespace App\Libraries\Authentification;
 
 use App\Models\User;
 use Carbon\Carbon;

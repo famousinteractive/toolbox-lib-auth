@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Libraries\Famous\Authentification\Auth;
+use App\Libraries\Authentification\Auth;
 use Closure;
 
 class AuthRoute

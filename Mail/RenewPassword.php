@@ -32,6 +32,6 @@ class RenewPassword extends Mailable
      */
     public function build()
     {
-        return $this->subject('Volvo sitemap photo : Renew password')->view('mail.renewPassword');
+        return $this->subject('Renew password')->view('mail.renewPassword');
     }
 }
